@@ -41,14 +41,14 @@ def ai_move(board,ai_symbol,player_symbol):
     for i in range(9):
         if board[i].isdigit():
             board_copy = board.copy()
-            board[i] = ai_symbol 
+            board_copy[i] = ai_symbol 
             if check_win(board_copy,ai_symbol):
                 board[i]=ai_symbol
                 return
     for i in range(9):
         if board[i].isdigit():
             board_copy=board.copy()
-            board[i]=player_symbol 
+            board_copy[i]=player_symbol 
             if check_win(board_copy,player_symbol):
                 board[i] = ai_symbol
                 return
@@ -88,20 +88,21 @@ def tic_tac_toe():
                         print('It is a tie')
                         break
                     else:
-                        trun  = 'AI'
-            else:
-                ai_move(board,ai_symbol,player_symbol) 
-                if check_win(board,ai_symbol):
-                    display_board(board)
-                    print('AI has won the game!')
-                    game_on=False
-                else:
-                    if check_full(board):
+                        turn  = 'AI'
+            elif turn=='AI':
+                    print('AI is making a move....')
+                    ai_move(board,ai_symbol,player_symbol) 
+                    if check_win(board,ai_symbol):
                         display_board(board)
-                        print('It is a Tie!')
-                        break
+                        print('AI has won the game!')
+                        game_on=False
                     else:
-                        turn='Player'
+                        if check_full(board):
+                            display_board(board)
+                            print('It is a Tie!')
+                            break
+                        else:
+                            turn='Player'
         play_again = input('Do you want ot Play again ? (yes/no):').lower()
         if play_again != 'yes':
             print('Thank You for Playing')
